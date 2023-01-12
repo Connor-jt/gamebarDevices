@@ -15,6 +15,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Gaming.XboxGameBar;
+using Windows.Devices.Enumeration;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Bluetooth;
+using Windows.Storage.Streams;
 
 namespace WidgetAdvSampleCS
 {
@@ -25,7 +29,7 @@ namespace WidgetAdvSampleCS
     {
         private XboxGameBarWidget widget1 = null;
         private XboxGameBarWidget widget1Settings = null;
-        private XboxGameBarWidget widget2 = null;
+        //private XboxGameBarWidget widget2 = null;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -101,16 +105,16 @@ namespace WidgetAdvSampleCS
 
                         Window.Current.Closed += Widget1SettingsWindow_Closed;
                     }
-                    else if (widgetArgs.AppExtensionId == "Widget2")
-                    {
-                        widget2 = new XboxGameBarWidget(
-                            widgetArgs,
-                            Window.Current.CoreWindow,
-                            rootFrame);
-                        rootFrame.Navigate(typeof(Widget2), widgetArgs.Uri);
+                    //else if (widgetArgs.AppExtensionId == "Widget2")
+                    //{
+                    //    widget2 = new XboxGameBarWidget(
+                    //        widgetArgs,
+                    //        Window.Current.CoreWindow,
+                    //        rootFrame);
+                    //    rootFrame.Navigate(typeof(Widget2), widgetArgs.Uri);
 
-                        Window.Current.Closed += Widget2Window_Closed;
-                    }
+                    //    Window.Current.Closed += Widget2Window_Closed;
+                    //}
                     else 
                     {
                         // Unknown - Game Bar should never send you an unknown App Extension Id
@@ -119,20 +123,20 @@ namespace WidgetAdvSampleCS
 
                     Window.Current.Activate();
                 }
-                else if (widgetArgs.AppExtensionId == "Widget2")
-                {
-                    // You can perform whatever behavior you need based on the URI payload. In our case
-                    // we're simply renavigating to Widget2 and displaying the absolute URI.  You
-                    // define your URI schema (subpath + query + fragment). 
-                    Frame rootFrame = null;
-                    var content = Window.Current.Content;
-                    if (content != null)
-                    {
-                        rootFrame = content as Frame;
-                    }
-                    rootFrame.NavigationFailed += OnNavigationFailed;
-                    rootFrame.Navigate(typeof(Widget2), widgetArgs.Uri);
-                }
+                //else if (widgetArgs.AppExtensionId == "Widget2")
+                //{
+                //    // You can perform whatever behavior you need based on the URI payload. In our case
+                //    // we're simply renavigating to Widget2 and displaying the absolute URI.  You
+                //    // define your URI schema (subpath + query + fragment). 
+                //    Frame rootFrame = null;
+                //    var content = Window.Current.Content;
+                //    if (content != null)
+                //    {
+                //        rootFrame = content as Frame;
+                //    }
+                //    rootFrame.NavigationFailed += OnNavigationFailed;
+                //    rootFrame.Navigate(typeof(Widget2), widgetArgs.Uri);
+                //}
             }
         }
 
@@ -148,18 +152,18 @@ namespace WidgetAdvSampleCS
             Window.Current.Closed -= Widget1SettingsWindow_Closed;
         }
 
-        private void Widget2Window_Closed(object sender, Windows.UI.Core.CoreWindowEventArgs e)
-        {
-            widget2 = null;
-            Window.Current.Closed -= Widget2Window_Closed;
-        }
+        //private void Widget2Window_Closed(object sender, Windows.UI.Core.CoreWindowEventArgs e)
+        //{
+        //    widget2 = null;
+        //    Window.Current.Closed -= Widget2Window_Closed;
+        //}
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -181,18 +185,21 @@ namespace WidgetAdvSampleCS
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
-            {
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-                // Ensure the current window is active
-                Window.Current.Activate();
-            }
+            //i think this breaks if we try to use it outside of gamebar
+            //if (e.PrelaunchActivated == false)
+            //{
+            //    if (rootFrame.Content == null)
+            //    {
+            //        // When the navigation stack isn't restored navigate to the first page,
+            //        // configuring the new page by passing required information as a navigation
+            //        // parameter
+            //        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+            //    }
+            //    // Ensure the current window is active
+            //    Window.Current.Activate();
+            //}
+            
+            
         }
 
         /// <summary>
@@ -223,7 +230,7 @@ namespace WidgetAdvSampleCS
 
             widget1 = null;
             widget1Settings = null;
-            widget2 = null;
+            //widget2 = null;
 
             deferral.Complete();
         }

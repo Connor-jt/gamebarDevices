@@ -33,10 +33,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="WidgetSampleCS.App">
       <uap:VisualElements
-        DisplayName="WidgetSampleCS"
+        DisplayName="Connected Devices"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="WidgetSampleCS"
+        Description="display connected devices (doesn&apos;t refresh, has to be done manually)"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

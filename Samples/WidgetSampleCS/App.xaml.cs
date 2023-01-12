@@ -83,6 +83,24 @@ namespace WidgetSampleCS
                         widgetArgs,
                         Window.Current.CoreWindow,
                         rootFrame);
+
+                    if (widget1 != null)
+                    {
+                        widget1.HorizontalResizeSupported = false;
+                        widget1.VerticalResizeSupported = true;
+
+                        Size size;
+                        size.Height = Convert.ToDouble(200);
+                        size.Width = Convert.ToDouble(380);
+                        widget1.MinWindowSize = size;
+
+                        Size size1;
+                        size1.Height = Convert.ToDouble(1200);
+                        size1.Width = Convert.ToDouble(380);
+                        widget1.MaxWindowSize = size1;
+                    }
+
+
                     rootFrame.Navigate(typeof(Widget1));
 
                     Window.Current.Closed += Widget1Window_Closed;
